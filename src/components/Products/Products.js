@@ -1,18 +1,17 @@
-import React, { useState } from 'react'
-import { Button, Card, Row } from 'react-bootstrap'
+import React from 'react'
+import { Row } from 'react-bootstrap'
 import { createPurchase } from '../../api/purchases'
+import Product from '../Product/Product'
 
 const Products = props => {
-  const [ purchase, setPurchase ] = useState(null)
+  const { user, msgAlert } = props
 
-  const handlePurchase = e => {
-    const { user, msgAlert } = props
-    const productData = e.target.data.product
-    setPurchase({ ...productData, owner: user._id })
-    createPurchase(purchase, user.token)
+  function handlePurchase (productData) {
+    console.log(productData)
+    createPurchase(productData, user.token)
       .then(msgAlert({
         heading: 'Purchase Successful',
-        message: `You have successfully purchased ${purchase.productName}`,
+        message: `You have successfully purchased ${productData.name}`,
         variant: 'success'
       }))
       .catch(err => {
@@ -27,42 +26,22 @@ const Products = props => {
   return (
     <Row className="justify-content-center">
       <h2 className="col-12">Our Products</h2>
-      <Card className="col-5">
-        <Card.Header>
-          <Card.Title>Shanos</Card.Title>
-        </Card.Header>
-        <Card.Body>
-          <Card.Img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.C98CEFNwrbi9ff79ndFs9wHaEK%26pid%3DApi&f=1" alt="Thanos with Shaq face"></Card.Img>
-          <Card.Text>This meme is Thanos, but with the face of Shaq.</Card.Text>
-          <Card.Text>$10.99</Card.Text>
-        </Card.Body>
-        <Card.Footer>
-          <Button
-            onClick={handlePurchase}
-            data-product={{ name: 'Shanos', price: '$10.99', description: 'This meme is Thanos, but with the face of Shaq.' }}
-          >
-            Purchase Now
-          </Button>
-        </Card.Footer>
-      </Card>
-      <Card className="col-5">
-        <Card.Header>
-          <Card.Title>Kitty Rocket</Card.Title>
-        </Card.Header>
-        <Card.Body>
-          <Card.Img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.qR8zWtkJugP-jBJNb46R7QHaFb%26pid%3DApi&f=1" alt="Cat with cardoard rocketship costume"></Card.Img>
-          <Card.Text>This meme is a Kitty dressed up as a rocket ship.</Card.Text>
-          <Card.Text>$8.99</Card.Text>
-        </Card.Body>
-        <Card.Footer>
-          <Button
-            onClick={handlePurchase}
-            data-product={{ name: 'Kitty Rocket', price: '$8.99', description: 'This meme is a Kitty dressed up as a rocket ship.' }}
-          >
-            Purchase Now
-          </Button>
-        </Card.Footer>
-      </Card>
+      <Product
+        name='Shanos'
+        description='This meme is Thanos, but with the face of Shaq.'
+        price='$10.99'
+        imgSrc='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.C98CEFNwrbi9ff79ndFs9wHaEK%26pid%3DApi&f=1'
+        imgAlt='Thanos with Shaq face'
+        clicked={handlePurchase}
+      />
+      <Product
+        name='Kitty Rocket'
+        description='This meme is a Kitty dressed up as a rocket ship.'
+        price='$8.99'
+        imgSrc='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.qR8zWtkJugP-jBJNb46R7QHaFb%26pid%3DApi&f=1'
+        imgAlt='Cat with cardoard rocketship costume'
+        clicked={handlePurchase}
+      />
     </Row>
   )
 }
