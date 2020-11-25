@@ -39,7 +39,7 @@ const Products = props => {
         <Card.Footer>
           <Button
             onClick={handlePurchase}
-            data-product={{ productName: 'Shanos', productPrice: '$10.99', productDescription: 'This meme is Thanos, but with the face of Shaq.' }}
+            data-product={{ name: 'Shanos', price: '$10.99', description: 'This meme is Thanos, but with the face of Shaq.' }}
           >
             Purchase Now
           </Button>
@@ -51,10 +51,16 @@ const Products = props => {
         </Card.Header>
         <Card.Body>
           <Card.Img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.qR8zWtkJugP-jBJNb46R7QHaFb%26pid%3DApi&f=1" alt="Cat with cardoard rocketship costume"></Card.Img>
-          <Card.Text>Check out our awesome Kitty Rocket</Card.Text>
+          <Card.Text>This meme is a Kitty dressed up as a rocket ship.</Card.Text>
+          <Card.Text>$8.99</Card.Text>
         </Card.Body>
         <Card.Footer>
-          <Button>Purchase Now</Button>
+          <Button
+            onClick={handlePurchase}
+            data-product={{ name: 'Kitty Rocket', price: '$8.99', description: 'This meme is a Kitty dressed up as a rocket ship.' }}
+          >
+            Purchase Now
+          </Button>
         </Card.Footer>
       </Card>
     </Row>
