@@ -9,7 +9,7 @@ import SignUp from './components/SignUp/SignUp'
 import SignIn from './components/SignIn/SignIn'
 import SignOut from './components/SignOut/SignOut'
 import ChangePassword from './components/ChangePassword/ChangePassword'
-import Products from './components/Purchases/PurchasesCreate'
+import Products from './components/Products/Products'
 import Account from './components/Account/Account'
 import PurchasesIndex from './components/Purchases/PurchasesIndex'
 import PurchasesShow from './components/Purchases/PurchasesShow'
@@ -118,7 +118,7 @@ class App extends Component {
             <ChangePassword msgAlert={this.msgAlert} user={user} />
           )} />
           <AuthenticatedRoute user={user} path='/products' render={() => (
-            <Products msgAlert={this.msgAlert} user={user} />
+            <Products msgAlert={this.msgAlert} user={user} addProduct={this.addProduct}/>
           )} />
           <AuthenticatedRoute user={user} path='/account' render={() => (
             <Account msgAlert={this.msgAlert} user={user} />
