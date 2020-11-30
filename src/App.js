@@ -9,11 +9,13 @@ import SignUp from './components/SignUp/SignUp'
 import SignIn from './components/SignIn/SignIn'
 import SignOut from './components/SignOut/SignOut'
 import ChangePassword from './components/ChangePassword/ChangePassword'
-import Products from './components/Purchases/PurchasesCreate'
+import Products from './components/Products/Products'
 import Account from './components/Account/Account'
 import PurchasesIndex from './components/Purchases/PurchasesIndex'
 import PurchasesShow from './components/Purchases/PurchasesShow'
-import PurchasesDelete from './components/Purchases/PurchasesDelete'
+import { createPurchase } from './api/purchases'
+import Cart from './components/Cart/Cart'
+
 
 class App extends Component {
   constructor () {
@@ -23,6 +25,51 @@ class App extends Component {
       msgAlerts: [],
       cart: []
     }
+  }
+
+  handlePurchase = () => {
+    const { cart, user } = this.state
+    const totalPrice = cart.reduce((accumulator, curProduct) => {
+      accumulator += curProduct.price
+    })
+    const productTally = cart.reduce((accumulator, curProduct) => {
+      accumulator[curProduct.name] = (accumulator[curProduct.name] || 0) + 1
+      return accumulator
+    }, {})
+    console.log(productTally)
+    // const fruitTally = fruit.reduce((currentTally, currentFruit) => {
+    //   currentTally[currentFruit] = (currentTally[currentFruit] || 0) + 1
+    //   return currentTally
+    // } , {})
+    const purchaseData = { totalPrice, productTally }
+
+    createPurchase(purchaseData, user.token)
+      .then(this.msgAlert({
+        heading: 'Purchase Successful',
+        message: 'You have successfully purchased everything in your cart',
+        variant: 'success'
+      }))
+      .catch(err => {
+        this.msgAlert({
+          heading: 'Purchase Failure',
+          message: `Error: ${err.message}`,
+          variant: 'danger'
+        })
+      })
+  }
+
+  addProduct = product => {
+    this.setState(prevState => {
+      prevState.cart.push(product)
+      return prevState
+    })
+  }
+
+  removeProduct = index => {
+    this.setState(prevState => {
+      prevState.cart.splice(index, 1)
+      return prevState
+    })
   }
 
   setUser = user => this.setState({ user })
@@ -72,7 +119,7 @@ class App extends Component {
             <ChangePassword msgAlert={this.msgAlert} user={user} />
           )} />
           <AuthenticatedRoute user={user} path='/products' render={() => (
-            <Products msgAlert={this.msgAlert} user={user} />
+            <Products msgAlert={this.msgAlert} user={user} addProduct={this.addProduct}/>
           )} />
           <AuthenticatedRoute user={user} path='/account' render={() => (
             <Account msgAlert={this.msgAlert} user={user} />
@@ -87,8 +134,17 @@ class App extends Component {
               match={props.match}
             />
           )} />
+          <AuthenticatedRoute user={user} path='/purchases/:id' render={props => (
+            <Cart
+              user={user}
+              msgAlert={this.msgAlert}
+              cart={this.state.cart}
+              handlePurchase={this.handlePurchase}
+              removeProduct={this.removeProduct}
+            />
           <AuthenticatedRoute user={user} path='/purchases' render={() => (
             <PurchasesDelete msgAlert={this.msgAlert} user={user} />
+
           )} />
         </main>
       </Fragment>
