@@ -21,7 +21,7 @@ class PurchasesIndex extends Component {
       <div>
         <h1>Your Purchases</h1>
         {
-          !this.state.purchases ? this.state.purchases.map((purchase) => {
+          this.state.purchases ? this.state.purchases.map((purchase) => {
             return (
               <div key={purchase._id}>
                 <p>{purchase.name}</p>

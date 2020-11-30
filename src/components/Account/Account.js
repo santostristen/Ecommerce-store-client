@@ -1,6 +1,5 @@
 import React from 'react'
-import { Button, Row } from 'react-bootstrap'
-import { Container } from 'react-bootstrap/lib/Tab'
+import { Button, Row, Container } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 const Account = ({ user }) => {
