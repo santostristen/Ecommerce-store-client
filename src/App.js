@@ -13,6 +13,7 @@ import Products from './components/Purchases/PurchasesCreate'
 import Account from './components/Account/Account'
 import PurchasesIndex from './components/Purchases/PurchasesIndex'
 import PurchasesShow from './components/Purchases/PurchasesShow'
+import PurchasesDelete from './components/Purchases/PurchasesDelete'
 
 class App extends Component {
   constructor () {
@@ -85,6 +86,9 @@ class App extends Component {
               msgAlert={this.msgAlert}
               match={props.match}
             />
+          )} />
+          <AuthenticatedRoute user={user} path='/purchases' render={() => (
+            <PurchasesDelete msgAlert={this.msgAlert} user={user} />
           )} />
         </main>
       </Fragment>
