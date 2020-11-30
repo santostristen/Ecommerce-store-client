@@ -13,6 +13,8 @@ import Products from './components/Purchases/PurchasesCreate'
 import Account from './components/Account/Account'
 import PurchasesIndex from './components/Purchases/PurchasesIndex'
 import PurchasesShow from './components/Purchases/PurchasesShow'
+import { createPurchase } from './api/purchases'
+import Cart from './components/Cart/Cart'
 
 class App extends Component {
   constructor () {
@@ -22,6 +24,51 @@ class App extends Component {
       msgAlerts: [],
       cart: []
     }
+  }
+
+  handlePurchase = () => {
+    const { cart, user } = this.state
+    const totalPrice = cart.reduce((accumulator, curProduct) => {
+      accumulator += curProduct.price
+    })
+    const productTally = cart.reduce((accumulator, curProduct) => {
+      accumulator[curProduct.name] = (accumulator[curProduct.name] || 0) + 1
+      return accumulator
+    }, {})
+    console.log(productTally)
+    // const fruitTally = fruit.reduce((currentTally, currentFruit) => {
+    //   currentTally[currentFruit] = (currentTally[currentFruit] || 0) + 1
+    //   return currentTally
+    // } , {})
+    const purchaseData = { totalPrice, productTally }
+
+    createPurchase(purchaseData, user.token)
+      .then(this.msgAlert({
+        heading: 'Purchase Successful',
+        message: 'You have successfully purchased everything in your cart',
+        variant: 'success'
+      }))
+      .catch(err => {
+        this.msgAlert({
+          heading: 'Purchase Failure',
+          message: `Error: ${err.message}`,
+          variant: 'danger'
+        })
+      })
+  }
+
+  addProduct = product => {
+    this.setState(prevState => {
+      prevState.cart.push(product)
+      return prevState
+    })
+  }
+
+  removeProduct = index => {
+    this.setState(prevState => {
+      prevState.cart.splice(index, 1)
+      return prevState
+    })
   }
 
   setUser = user => this.setState({ user })
@@ -84,6 +131,15 @@ class App extends Component {
               user={user}
               msgAlert={this.msgAlert}
               match={props.match}
+            />
+          )} />
+          <AuthenticatedRoute user={user} path='/purchases/:id' render={props => (
+            <Cart
+              user={user}
+              msgAlert={this.msgAlert}
+              cart={this.state.cart}
+              handlePurchase={this.handlePurchase}
+              removeProduct={this.removeProduct}
             />
           )} />
         </main>
