@@ -11,11 +11,25 @@ class PurchasesIndex extends Component {
     }
   }
   componentDidMount () {
-    indexPurchase(this.props.user.token)
+    const { msgAlert, user } = this.props
+    indexPurchase(user.token)
       .then(response => {
         this.setState({ purchases: response.data.purchases })
       })
-      .catch(console.error)
+      .then(() => {
+        msgAlert({
+          heading: 'Your Purchases',
+          message: 'Past Purchases',
+          variant: 'success'
+        })
+      })
+      .catch(err => {
+        msgAlert({
+          heading: 'Could not show purchases',
+          message: 'Error code: ' + err.message,
+          variant: 'danger'
+        })
+      })
   }
   render () {
     return (
