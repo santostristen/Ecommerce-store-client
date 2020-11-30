@@ -34,7 +34,7 @@ class PurchasesIndex extends Component {
   render () {
     return (
       <div>
-        <h1>Your Purchases</h1>
+        <h2>Your Purchases</h2>
         {
           this.state.purchases ? this.state.purchases.map((purchase) => {
             return (
