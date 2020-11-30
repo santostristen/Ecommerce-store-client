@@ -15,7 +15,7 @@ import PurchasesIndex from './components/Purchases/PurchasesIndex'
 import PurchasesShow from './components/Purchases/PurchasesShow'
 import { createPurchase } from './api/purchases'
 import Cart from './components/Cart/Cart'
-
+import PurchasesDelete from './components/Purchases/PurchasesDelete'
 
 class App extends Component {
   constructor () {
@@ -142,9 +142,9 @@ class App extends Component {
               handlePurchase={this.handlePurchase}
               removeProduct={this.removeProduct}
             />
+          )} />
           <AuthenticatedRoute user={user} path='/purchases' render={() => (
             <PurchasesDelete msgAlert={this.msgAlert} user={user} />
-
           )} />
         </main>
       </Fragment>
