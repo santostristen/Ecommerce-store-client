@@ -10,6 +10,7 @@ import SignIn from './components/SignIn/SignIn'
 import SignOut from './components/SignOut/SignOut'
 import ChangePassword from './components/ChangePassword/ChangePassword'
 import Products from './components/Products/Products'
+import PurchaseUpdate from './components/Purchase/PurchaseUpdate'
 
 class App extends Component {
   constructor () {
