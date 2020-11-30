@@ -21,3 +21,13 @@ export const indexPurchase = (token) => {
     }
   })
 }
+
+export const showPurchase = (user, purchaseId) => {
+  return axios({
+    method: 'GET',
+    url: `${apiUrl}/purchases/${purchaseId}`,
+    headers: {
+      Authorization: `Bearer ${user.token}`
+    }
+  })
+}

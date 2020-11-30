@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { indexPurchase } from '../../api/purchases'
 
 class PurchasesIndex extends Component {
@@ -24,7 +25,9 @@ class PurchasesIndex extends Component {
           this.state.purchases ? this.state.purchases.map((purchase) => {
             return (
               <div key={purchase._id}>
-                <p>{purchase.name}</p>
+                <Link to={`/purchases/${purchase._id}`}>
+                  <p>{purchase.name}</p>
+                </Link>
                 <p>{purchase.price}</p>
                 <p>{purchase.description}</p>
               </div>
