@@ -9,7 +9,9 @@ import SignUp from './components/SignUp/SignUp'
 import SignIn from './components/SignIn/SignIn'
 import SignOut from './components/SignOut/SignOut'
 import ChangePassword from './components/ChangePassword/ChangePassword'
-import Products from './components/Products/ProductsCreate'
+import Products from './components/Purchases/PurchasesCreate'
+import Account from './components/Account/Account'
+import PurchasesIndex from './components/Purchases/PurchasesIndex'
 
 class App extends Component {
   constructor () {
@@ -68,6 +70,12 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/products' render={() => (
             <Products msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/account' render={() => (
+            <Account msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/purchases' render={() => (
+            <PurchasesIndex msgAlert={this.msgAlert} user={user} />
           )} />
         </main>
       </Fragment>
