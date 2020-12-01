@@ -42,8 +42,7 @@ class PurchasesIndex extends Component {
                 <Link to={`/purchases/${purchase._id}`}>
                   <p>{purchase.name}</p>
                 </Link>
-                <p>{purchase.totalPrice}</p>
-                <p>{purchase.description}</p>
+                <p>${purchase.totalPrice}</p>
               </div>
             )
           }) : null

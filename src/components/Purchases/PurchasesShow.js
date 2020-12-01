@@ -34,8 +34,7 @@ const PurchasesShow = props => {
       {purchase ? (
         <div>
           <h2>{purchase.name}</h2>
-          <p>{purchase.price}</p>
-          <p>{purchase.description}</p>
+          <p>{purchase.totalPrice}</p>
         </div>
       ) : 'Loading...'}
     </div>
