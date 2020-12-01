@@ -5,7 +5,7 @@ const ReviewsDelete = ({ user, match, msgAlert }) => {
   const [ review, setReview ] = useState(null)
 
   useEffect(() => {
-    // add productId in showReview
+    // add productId in showReview.
     showReview(user, match.params.id)
       .then(res => setReview(res.data.review))
       .catch(err => {
