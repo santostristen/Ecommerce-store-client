@@ -10,3 +10,13 @@ export const indexProducts = (token) => {
     }
   })
 }
+
+export const showProduct = (token, id) => {
+  return axios({
+    method: 'GET',
+    url: `${apiUrl}/products/${id}`,
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+}
