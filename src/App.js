@@ -135,7 +135,7 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/products/:id' render={props => (
             <ProductShow msgAlert={this.msgAlert} user={user} match={props.match}/>
           )} />
-          <AuthenticatedRoute user={user} path='/products/:id' render={() => (
+          <AuthenticatedRoute user={user} path='/products-create' render={() => (
             <ProductCreate msgAlert={this.msgAlert} user={user} />
           )} />
           {/* PURCHASES */}
