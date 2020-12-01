@@ -28,7 +28,7 @@ const PurchasesShow = props => {
       })
   }, [])
 
-  // If movie is 'null', print Loading
+  // If purchase is 'null', print Loading
   return (
     <div>
       {purchase ? (
