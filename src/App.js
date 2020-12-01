@@ -21,6 +21,7 @@ import PurchasesDelete from './components/Purchases/PurchasesDelete'
 import EditReview from './components/Reviews/editReview'
 import ReviewsDelete from './components/Reviews/ReviewsDelete'
 import CreateReview from './components/Reviews/createReview'
+import ProductCreate from './components/Products/ProductCreate'
 
 class App extends Component {
   constructor () {
@@ -133,6 +134,9 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/products/:id' render={props => (
             <ProductShow msgAlert={this.msgAlert} user={user} match={props.match}/>
+          )} />
+          <AuthenticatedRoute user={user} path='/products/:id' render={() => (
+            <ProductCreate msgAlert={this.msgAlert} user={user} />
           )} />
           {/* PURCHASES */}
           <AuthenticatedRoute user={user} exact path='/purchases' render={() => (
