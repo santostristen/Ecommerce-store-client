@@ -20,3 +20,14 @@ export const showProduct = (token, productId) => {
     }
   })
 }
+
+export const createProduct = (product, token) => {
+  return axios({
+    method: 'POST',
+    url: `${apiUrl}/products`,
+    data: { product },
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+}
