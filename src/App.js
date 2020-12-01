@@ -143,8 +143,11 @@ class App extends Component {
               removeProduct={this.removeProduct}
             />
           )} />
-          <AuthenticatedRoute user={user} path='/purchases' render={() => (
-            <PurchasesDelete msgAlert={this.msgAlert} user={user} />
+          <AuthenticatedRoute user={user} path='/purchases' render={props => (
+            <PurchasesDelete
+              user={user}
+              msgAlert={this.msgAlert}
+            />
           )} />
         </main>
       </Fragment>

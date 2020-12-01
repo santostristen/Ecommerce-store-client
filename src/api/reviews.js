@@ -32,3 +32,13 @@ export const editReview = (user, review, id) => {
     }
   })
 }
+
+export const showReview = (user, id) => {
+  return axios({
+    method: 'GET',
+    url: apiUrl + '/reviews/' + id,
+    headers: {
+      Authorization: `Bearer ${user.token}`
+    }
+  })
+}
