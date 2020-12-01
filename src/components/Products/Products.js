@@ -41,7 +41,7 @@ const Products = ({ user, msgAlert, addProduct }) => {
           imgAlt={product.imgAlt}
           clicked={() => addProduct(product)}
         >
-          <Link to={`/product/${product._id}`}><Button variant="outline-primary">See Details</Button></Link>
+          <Link to={`/products/${product._id}`}><Button variant="outline-primary">See Details</Button></Link>
         </Product>
       ))}
     </Row>

@@ -11,6 +11,7 @@ import SignOut from './components/SignOut/SignOut'
 import ChangePassword from './components/ChangePassword/ChangePassword'
 
 import Products from './components/Products/Products'
+import ProductShow from './components/Products/ProductShow'
 import Account from './components/Account/Account'
 import PurchasesIndex from './components/Purchases/PurchasesIndex'
 import PurchasesShow from './components/Purchases/PurchasesShow'
@@ -122,7 +123,7 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword msgAlert={this.msgAlert} user={user} />
           )} />
-          <AuthenticatedRoute user={user} path='/products' render={() => (
+          <AuthenticatedRoute user={user} exact path='/products' render={() => (
             <Products msgAlert={this.msgAlert} user={user} addProduct={this.addProduct}/>
           )} />
           <AuthenticatedRoute user={user} path='/account' render={() => (
@@ -138,6 +139,9 @@ class App extends Component {
               match={props.match}
             />
           )} />
+          <AuthenticatedRoute user={user} path='/purchase-delete/:id' render={() => (
+            <PurchasesDelete msgAlert={this.msgAlert} user={user} />
+          )} />
           <AuthenticatedRoute user={user} path='/cart' render={props => (
             <Cart
               user={user}
@@ -147,8 +151,8 @@ class App extends Component {
               removeProduct={this.removeProduct}
             />
           )} />
-          <AuthenticatedRoute user={user} path='/purchase-delete/:id' render={() => (
-            <PurchasesDelete msgAlert={this.msgAlert} user={user} />
+          <AuthenticatedRoute user={user} path='/products/:id' render={props => (
+            <ProductShow msgAlert={this.msgAlert} user={user} match={props.match}/>
           )} />
         </main>
       </Fragment>
