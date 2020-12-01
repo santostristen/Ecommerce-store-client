@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { showReview, deleteReview } from '../../api/reviews'
 
-const ReviewsDelete = ({ user, match, msgAlert }) => {
+const ReviewsDelete = (props) => {
   const [ review, setReview ] = useState(null)
+
+  const { user, match, msgAlert, location } = props
+  const productId = location.state.productId
+  const { reviewId } = match.params
 
   useEffect(() => {
     // add productId in showReview.
-    showReview(user, match.params.id)
+    showReview(user, reviewId, productId)
       .then(res => setReview(res.data.review))
       .catch(err => {
         msgAlert({
@@ -19,7 +23,7 @@ const ReviewsDelete = ({ user, match, msgAlert }) => {
 
   const handleDelete = () => {
     // add productID in deleteReview
-    deleteReview(user, match.params.id)
+    deleteReview(user, reviewId, productId)
       .then(() => {
         msgAlert({
           heading: 'Review Deleted',

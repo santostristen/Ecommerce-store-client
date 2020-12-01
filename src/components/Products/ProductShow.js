@@ -47,6 +47,7 @@ const ProductShow = ({ user, msgAlert, match, addProduct }) => {
                 <h4>{review.head}</h4>
                 <p>{review.body}</p>
                 <StarRatingComponent
+                  name="review"
                   starCount={5}
                   value={review.rating}
                   editing={false}
