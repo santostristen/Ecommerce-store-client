@@ -18,6 +18,9 @@ import PurchasesShow from './components/Purchases/PurchasesShow'
 import { createPurchase } from './api/purchases'
 import Cart from './components/Cart/Cart'
 import PurchasesDelete from './components/Purchases/PurchasesDelete'
+import EditReview from './components/Reviews/editReview'
+import ReviewsDelete from './components/Reviews/ReviewsDelete'
+import CreateReview from './components/Reviews/createReview'
 
 class App extends Component {
   constructor () {
@@ -111,6 +114,7 @@ class App extends Component {
           />
         ))}
         <main className="container">
+          {/* AUTH ROUTES */}
           <Route path='/sign-up' render={() => (
             <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
           )} />
@@ -123,12 +127,14 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword msgAlert={this.msgAlert} user={user} />
           )} />
+          {/* PRODUCTS */}
           <AuthenticatedRoute user={user} exact path='/products' render={() => (
             <Products msgAlert={this.msgAlert} user={user} addProduct={this.addProduct}/>
           )} />
-          <AuthenticatedRoute user={user} path='/account' render={() => (
-            <Account msgAlert={this.msgAlert} user={user} />
+          <AuthenticatedRoute user={user} path='/products/:id' render={props => (
+            <ProductShow msgAlert={this.msgAlert} user={user} match={props.match}/>
           )} />
+          {/* PURCHASES */}
           <AuthenticatedRoute user={user} exact path='/purchases' render={() => (
             <PurchasesIndex msgAlert={this.msgAlert} user={user} />
           )} />
@@ -142,6 +148,20 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/purchase-delete/:id' render={() => (
             <PurchasesDelete msgAlert={this.msgAlert} user={user} />
           )} />
+          {/* REVIEWS */}
+          <AuthenticatedRoute user={user} path='/review-update/:reviewId' render={props => (
+            <EditReview msgAlert={this.msgAlert} user={user} match={props.match} location={props.location} />
+          )} />
+          <AuthenticatedRoute user={user} path='/review-delete/:reviewId' render={props => (
+            <ReviewsDelete msgAlert={this.msgAlert} user={user} match={props.match} location={props.location} />
+          )} />
+          <AuthenticatedRoute user={user} path='/review-create' render={() => (
+            <CreateReview msgAlert={this.msgAlert} user={user} />
+          )} />
+          {/* OTHER */}
+          <AuthenticatedRoute user={user} path='/account' render={() => (
+            <Account msgAlert={this.msgAlert} user={user} />
+          )} />
           <AuthenticatedRoute user={user} path='/cart' render={props => (
             <Cart
               user={user}
@@ -150,9 +170,6 @@ class App extends Component {
               handlePurchase={this.handlePurchase}
               removeProduct={this.removeProduct}
             />
-          )} />
-          <AuthenticatedRoute user={user} path='/products/:id' render={props => (
-            <ProductShow msgAlert={this.msgAlert} user={user} match={props.match}/>
           )} />
         </main>
       </Fragment>

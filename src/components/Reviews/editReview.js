@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
-import { editReview, showReview } from './../api/reviews'
+import { editReview, showReview } from './../../api/reviews'
 
 // Make sure productShow is labeled the same
 // import { productShow } from '../../api/product'
@@ -11,10 +11,11 @@ import { editReview, showReview } from './../api/reviews'
 const EditReview = props => {
   const [review, setReview] = useState({ head: '', body: '', rating: null })
   const [updated, setUpdated] = useState(false)
-  const { user, msgAlert, match } = props
+  const { user, msgAlert, match, location } = props
+  const { productId } = location.state
 
   useEffect(() => {
-    showReview(user, match.params.reviewId)
+    showReview(user, match.params.reviewId, productId)
       .then(res => {
         setReview(res.data.review)
       })
@@ -45,7 +46,7 @@ const EditReview = props => {
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    editReview(user, review, match.params.reviewId)
+    editReview(user, review, productId)
       .then(() => setUpdated(true))
       .then(() => msgAlert({
         heading: 'Update successful',

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import createReview from './../api/reviews'
+import { createReview } from './../../api/reviews'
 
 class CreateReview extends Component {
   constructor () {

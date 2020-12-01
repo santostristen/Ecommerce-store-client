@@ -11,30 +11,31 @@ export const createReview = (review, token) => {
     }
   })
 }
-export const showReview = (user, id) => {
+export const showReview = (user, reviewId, productId) => {
+  console.log(productId)
   return axios({
     method: 'GET',
-    url: apiUrl + '/reviews/' + id,
+    url: `${apiUrl}/reviews/${reviewId}/${productId}`,
     headers: {
       Authorization: `Bearer ${user.token}`
     }
   })
 }
 
-export const deleteReview = (user, id) => {
+export const deleteReview = (user, reviewId, productId) => {
   return axios({
     method: 'DELETE',
-    url: apiUrl + '/reviews/' + id,
+    url: `${apiUrl}/reviews/${reviewId}/${productId}`,
     headers: {
       Authorization: `Bearer ${user.token}`
     }
   })
 }
 
-export const editReview = (user, review, id) => {
+export const editReview = (user, review, productId) => {
   return axios({
     method: 'PATCH',
-    url: apiUrl + '/reviews/' + id,
+    url: `${apiUrl}/reviews/${review._id}/${productId}`,
     data: { review: review },
     headers: {
       Authorization: `Bearer ${user.token}`
