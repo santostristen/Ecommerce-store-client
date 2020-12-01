@@ -11,6 +11,15 @@ export const createReview = (review, token) => {
     }
   })
 }
+export const showReview = (user, id) => {
+  return axios({
+    method: 'GET',
+    url: apiUrl + '/reviews/' + id,
+    headers: {
+      Authorization: `Bearer ${user.token}`
+    }
+  })
+}
 
 export const deleteReview = (user, id) => {
   return axios({
