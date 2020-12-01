@@ -10,7 +10,8 @@ const ProductCreate = props => {
     imgAlt: ''
   })
 
-  const handleSubmit = () => {
+  const handleSubmit = e => {
+    e.preventDefault()
     createProduct(product, props.user.token)
       .then(this.msgAlert({
         heading: 'Purchase Successful',
