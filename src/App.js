@@ -9,12 +9,18 @@ import SignUp from './components/SignUp/SignUp'
 import SignIn from './components/SignIn/SignIn'
 import SignOut from './components/SignOut/SignOut'
 import ChangePassword from './components/ChangePassword/ChangePassword'
-import Products from './components/Purchases/PurchasesCreate'
+
+import Products from './components/Products/Products'
+import ProductShow from './components/Products/ProductShow'
 import Account from './components/Account/Account'
 import PurchasesIndex from './components/Purchases/PurchasesIndex'
 import PurchasesShow from './components/Purchases/PurchasesShow'
 import { createPurchase } from './api/purchases'
 import Cart from './components/Cart/Cart'
+import PurchasesDelete from './components/Purchases/PurchasesDelete'
+import EditReview from './components/Reviews/editReview'
+import ReviewsDelete from './components/Reviews/ReviewsDelete'
+import CreateReview from './components/Reviews/createReview'
 
 class App extends Component {
   constructor () {
@@ -29,18 +35,20 @@ class App extends Component {
   handlePurchase = () => {
     const { cart, user } = this.state
     const totalPrice = cart.reduce((accumulator, curProduct) => {
-      accumulator += curProduct.price
-    })
+      const totalPrice = accumulator + curProduct.price
+      return totalPrice
+    }, 0)
     const productTally = cart.reduce((accumulator, curProduct) => {
       accumulator[curProduct.name] = (accumulator[curProduct.name] || 0) + 1
       return accumulator
     }, {})
-    console.log(productTally)
     // const fruitTally = fruit.reduce((currentTally, currentFruit) => {
     //   currentTally[currentFruit] = (currentTally[currentFruit] || 0) + 1
     //   return currentTally
     // } , {})
     const purchaseData = { totalPrice, productTally }
+
+    console.log(purchaseData)
 
     createPurchase(purchaseData, user.token)
       .then(this.msgAlert({
@@ -62,6 +70,7 @@ class App extends Component {
       prevState.cart.push(product)
       return prevState
     })
+    console.log(this.state.cart)
   }
 
   removeProduct = index => {
@@ -105,6 +114,7 @@ class App extends Component {
           />
         ))}
         <main className="container">
+          {/* AUTH ROUTES */}
           <Route path='/sign-up' render={() => (
             <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
           )} />
@@ -117,12 +127,14 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword msgAlert={this.msgAlert} user={user} />
           )} />
-          <AuthenticatedRoute user={user} path='/products' render={() => (
-            <Products msgAlert={this.msgAlert} user={user} />
+          {/* PRODUCTS */}
+          <AuthenticatedRoute user={user} exact path='/products' render={() => (
+            <Products msgAlert={this.msgAlert} user={user} addProduct={this.addProduct}/>
           )} />
-          <AuthenticatedRoute user={user} path='/account' render={() => (
-            <Account msgAlert={this.msgAlert} user={user} />
+          <AuthenticatedRoute user={user} path='/products/:id' render={props => (
+            <ProductShow msgAlert={this.msgAlert} user={user} match={props.match}/>
           )} />
+          {/* PURCHASES */}
           <AuthenticatedRoute user={user} exact path='/purchases' render={() => (
             <PurchasesIndex msgAlert={this.msgAlert} user={user} />
           )} />
@@ -133,7 +145,24 @@ class App extends Component {
               match={props.match}
             />
           )} />
-          <AuthenticatedRoute user={user} path='/purchases/:id' render={props => (
+          <AuthenticatedRoute user={user} path='/purchase-delete/:id' render={() => (
+            <PurchasesDelete msgAlert={this.msgAlert} user={user} />
+          )} />
+          {/* REVIEWS */}
+          <AuthenticatedRoute user={user} path='/review-update/:reviewId' render={props => (
+            <EditReview msgAlert={this.msgAlert} user={user} match={props.match} location={props.location} />
+          )} />
+          <AuthenticatedRoute user={user} path='/review-delete/:reviewId' render={props => (
+            <ReviewsDelete msgAlert={this.msgAlert} user={user} match={props.match} location={props.location} />
+          )} />
+          <AuthenticatedRoute user={user} path='/review-create' render={() => (
+            <CreateReview msgAlert={this.msgAlert} user={user} />
+          )} />
+          {/* OTHER */}
+          <AuthenticatedRoute user={user} path='/account' render={() => (
+            <Account msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/cart' render={props => (
             <Cart
               user={user}
               msgAlert={this.msgAlert}
