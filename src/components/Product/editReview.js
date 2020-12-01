@@ -1,7 +1,6 @@
 // user token
 // start it with previous data - prevState
 import React, { useState, useEffect } from 'react'
-import { Card, Button } from 'react-bootstrap'
 import { Redirect } from 'react-router-dom'
 import { editReview, showReview } from './../api/reviews'
 
@@ -14,7 +13,6 @@ const EditReview = props => {
   const { user, msgAlert, match } = props
 
   useEffect(() => {
-
     showReview(user, match.params.reviewId)
       .then(res => {
         setReview(res.data.review)
@@ -26,13 +24,13 @@ const EditReview = props => {
     //     variant: 'success'
     //   })
     // })
-    // .catch(err => {
-    //   msgAlert({
-    //     heading: 'Show product failed :(',
-    //     message: 'Error code: ' + err.message,
-    //     variant: 'danger'
-    //   })
-    // })
+      .catch(err => {
+        msgAlert({
+          heading: 'Show product failed :(',
+          message: 'Error code: ' + err.message,
+          variant: 'danger'
+        })
+      })
   }, [])
 
   const handleChange = (event) => {
@@ -59,7 +57,7 @@ const EditReview = props => {
         variant: 'danger'
       }))
   }
-// confirm after productShow url written (LOOK AT ME!!!!! SOMETHING IS WRONG)
+  // confirm after productShow url written (LOOK AT ME!!!!! SOMETHING IS WRONG)
   if (updated) {
     return (
       <Redirect to={`/products/${props.location.state}`} />
