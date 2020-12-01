@@ -1,24 +1,36 @@
 import React from 'react'
 import { Button } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 const Cart = ({ cart, handlePurchase, removeProduct }) => {
   return (
     <div>
       <h2>Your Shopping Cart</h2>
-      {cart.map(product => (
-        <div key={product._id}>
-          <h5>{product.name}</h5>
-          <p>{product.price}</p>
-          <Button variant='outline-danger' onClick={removeProduct}>Remove Product</Button>
+      {cart.length > 0 ? (
+        <div>
+          {cart.map(product => (
+            <div key={product._id}>
+              <h5>{product.name}</h5>
+              <p>{product.price}</p>
+              <Button variant='outline-danger' onClick={removeProduct}>Remove Product</Button>
+            </div>
+          ))}
+          <h6>Total Price</h6>
+          <p>$
+            {cart.reduce((accumulator, curProduct) => {
+              const totalPrice = accumulator + curProduct.price
+              return totalPrice
+            }, 0)}
+          </p>
+          <Button variant='primary' onClick={handlePurchase}>Purchase Cart</Button>
         </div>
-      ))}
-      <h6>Total Price</h6>
-      <p>$
-        {cart.reduce((accumulator, curProduct) => {
-          accumulator += curProduct.price
-        })}
-      </p>
-      <Button variant='primary' onClick={handlePurchase}>Purchase Cart</Button>
+      ) : (
+        <div>
+          <h4>Cart is empty</h4>
+          <p>Please add items to your cart</p>
+          <Link to="/products"><Button variant="primary">See Products</Button></Link>
+        </div>
+      )}
     </div>
   )
 }

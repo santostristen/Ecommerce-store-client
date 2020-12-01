@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Row } from 'react-bootstrap'
+import { Button, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import { indexProducts } from '../../api/products'
 import Product from '../Product/Product'
 
@@ -38,8 +39,10 @@ const Products = ({ user, msgAlert, addProduct }) => {
           price={product.price}
           imgSrc={product.imgSrc}
           imgAlt={product.imgAlt}
-          clicked={addProduct}
-        />
+          clicked={() => addProduct(product)}
+        >
+          <Link to={`/product/${product._id}`}><Button variant="outline-primary">See Details</Button></Link>
+        </Product>
       ))}
     </Row>
   )
