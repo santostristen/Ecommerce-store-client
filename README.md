@@ -1,5 +1,3 @@
-To be filled in later
-
 Deployed Sites:
 
 BackEnd- https://aqueous-brushlands-71762.herokuapp.com/
