@@ -72,7 +72,11 @@ class App extends Component {
       prevState.cart.push(product)
       return prevState
     })
-    console.log(this.state.cart)
+    this.msgAlert({
+      heading: 'Add to Cart Successful',
+      message: `${product.name} is now in your cart.`,
+      variant: 'success'
+    })
   }
 
   removeProduct = index => {
