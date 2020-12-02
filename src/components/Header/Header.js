@@ -4,7 +4,7 @@ import Navbar from 'react-bootstrap/Navbar'
 
 const authenticatedOptions = (
   <Fragment>
-    <Nav.Link href="#products">Products</Nav.Link>
+    <Nav.Link href="#products">Memes</Nav.Link>
     <Nav.Link href="#account">Account</Nav.Link>
     <Nav.Link href="#cart">Cart</Nav.Link>
     <Nav.Link href="#change-password">Change Password</Nav.Link>
@@ -28,7 +28,7 @@ const alwaysOptions = (
 const Header = ({ user }) => (
   <Navbar bg="primary" variant="dark" expand="md">
     <Navbar.Brand href="#">
-      ecommerce-store-client
+      The Meme Store
     </Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">

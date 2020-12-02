@@ -33,8 +33,10 @@ const PurchasesShow = props => {
     <div>
       {purchase ? (
         <div>
-          <h2>{purchase.name}</h2>
-          <p>{purchase.totalPrice}</p>
+          {Object.keys(purchase.productTally).map(key => {
+            return <p key={key}>{purchase.productTally[key]} {key}</p>
+          })}
+          <p>Total Price: ${purchase.totalPrice}</p>
         </div>
       ) : 'Loading...'}
     </div>

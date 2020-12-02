@@ -40,8 +40,8 @@ class PurchasesIndex extends Component {
             return (
               <div key={purchase._id}>
                 <h4>Order number: <Link to={`/purchases/${purchase._id}`}>{purchase._id}</Link></h4>
-                <h5>{purchase.productTally.toString()}</h5>
-                <p>${purchase.totalPrice}</p>
+                <h5>${purchase.totalPrice}</h5>
+                <p>Purchased {new Date(purchase.createdAt).toString()}</p>
               </div>
             )
           }) : null
