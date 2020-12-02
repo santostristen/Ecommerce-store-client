@@ -22,7 +22,7 @@ const Cart = ({ cart, handlePurchase, removeProduct }) => {
               return totalPrice
             }, 0)}
           </p>
-          <Button variant='primary' onClick={handlePurchase}>Purchase Cart</Button>
+          <Button variant='primary' role='link' onClick={handlePurchase}>Checkout</Button>
         </div>
       ) : (
         <div>
