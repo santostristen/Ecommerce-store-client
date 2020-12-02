@@ -39,7 +39,7 @@ class PurchasesIndex extends Component {
           this.state.purchases ? this.state.purchases.map((purchase) => {
             return (
               <div key={purchase._id}>
-                <h4>Order number: <Link to={`/purchases/${purchase._id}`}>{purchase._d}</Link></h4>
+                <h4>Order number: <Link to={`/purchases/${purchase._id}`}>{purchase._id}</Link></h4>
                 <h5>{purchase.productTally.toString()}</h5>
                 <p>${purchase.totalPrice}</p>
               </div>

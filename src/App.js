@@ -158,7 +158,7 @@ class App extends Component {
             <EditReview msgAlert={this.msgAlert} user={user} match={props.match} location={props.location} />
           )} />
           <AuthenticatedRoute user={user} path='/review-delete/:reviewId' render={props => (
-            <ReviewsDelete msgAlert={this.msgAlert} user={user} match={props.match} location={props.location} />
+            <ReviewsDelete msgAlert={this.msgAlert} user={user} match={props.match} location={props.location} history={props.history}/>
           )} />
           <AuthenticatedRoute user={user} path='/review-create' render={(props) => (
             <CreateReview msgAlert={this.msgAlert} user={user} location={props.location} />
