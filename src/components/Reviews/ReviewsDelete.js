@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Redirect } from 'react-router-dom'
 import { showReview, deleteReview } from '../../api/reviews'
 
 const ReviewsDelete = (props) => {
@@ -7,6 +8,7 @@ const ReviewsDelete = (props) => {
   const { user, match, msgAlert, location } = props
   const productId = location.state.productId
   const { reviewId } = match.params
+  const [deleted, setDeleted] = useState(false)
 
   useEffect(() => {
     // add productId in showReview.
@@ -31,7 +33,8 @@ const ReviewsDelete = (props) => {
           variant: 'success'
         })
       })
-      .then(() => history.push('/products'))
+
+      .then(() => setDeleted(true))
       .catch(err => {
         msgAlert({
           heading: 'Delete Fail',
@@ -39,6 +42,12 @@ const ReviewsDelete = (props) => {
           variant: 'danger'
         })
       })
+  }
+
+  if (deleted) {
+    return (
+      <Redirect to={`/products/${props.location.state.productId}`} />
+    )
   }
   return (
     <div>

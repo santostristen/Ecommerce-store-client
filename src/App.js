@@ -10,7 +10,7 @@ import SignIn from './components/SignIn/SignIn'
 import SignOut from './components/SignOut/SignOut'
 import ChangePassword from './components/ChangePassword/ChangePassword'
 
-import Products from './components/Products/Products'
+import Products from './components/Products/ProductsIndex'
 import ProductShow from './components/Products/ProductShow'
 import Account from './components/Account/Account'
 import PurchasesIndex from './components/Purchases/PurchasesIndex'
@@ -18,9 +18,14 @@ import PurchasesShow from './components/Purchases/PurchasesShow'
 import { createPurchase } from './api/purchases'
 import Cart from './components/Cart/Cart'
 import PurchasesDelete from './components/Purchases/PurchasesDelete'
-import EditReview from './components/Reviews/editReview'
+import EditReview from './components/Reviews/ReviewsEdit'
 import ReviewsDelete from './components/Reviews/ReviewsDelete'
-import CreateReview from './components/Reviews/createReview'
+import CreateReview from './components/Reviews/ReviewsCreate'
+import ProductCreate from './components/Products/ProductsCreate'
+import { loadStripe } from '@stripe/stripe-js'
+// Make sure to call `loadStripe` outside of a component’s render to avoid
+// recreating the `Stripe` object on every render.
+const stripePromise = loadStripe('pk_test_51HtJM1Kr9AmqVFZO9h6JePYnZ0DlleDYm70kqle6Y7YMeKjEjNYGXCxPkRtMZw2ySpM57xbzSxwvKJoZNyekhW6f000TXLdiMb')
 
 class App extends Component {
   constructor () {
@@ -29,6 +34,27 @@ class App extends Component {
       user: null,
       msgAlerts: [],
       cart: []
+    }
+  }
+
+  handleClick = async (event) => {
+  // Get Stripe.js instance
+    const stripe = await stripePromise
+
+    // Call your backend to create the Checkout Session
+    const response = await fetch('http://localhost:4741/create-checkout-session', { method: 'POST' })
+
+    const session = await response.json()
+
+    // When the customer clicks on the button, redirect them to Checkout.
+    const result = await stripe.redirectToCheckout({
+      sessionId: session.id
+    })
+
+    if (result.error) {
+      // If `redirectToCheckout` fails due to a browser or network
+      // error, display the localized error message to your customer
+      // using `result.error.message`.
     }
   }
 
@@ -56,6 +82,7 @@ class App extends Component {
         message: 'You have successfully purchased everything in your cart',
         variant: 'success'
       }))
+      .then(() => this.setState({ cart: [] }))
       .catch(err => {
         this.msgAlert({
           heading: 'Purchase Failure',
@@ -70,7 +97,11 @@ class App extends Component {
       prevState.cart.push(product)
       return prevState
     })
-    console.log(this.state.cart)
+    this.msgAlert({
+      heading: 'Add to Cart Successful',
+      message: `${product.name} is now in your cart.`,
+      variant: 'success'
+    })
   }
 
   removeProduct = index => {
@@ -132,7 +163,10 @@ class App extends Component {
             <Products msgAlert={this.msgAlert} user={user} addProduct={this.addProduct}/>
           )} />
           <AuthenticatedRoute user={user} path='/products/:id' render={props => (
-            <ProductShow msgAlert={this.msgAlert} user={user} match={props.match}/>
+            <ProductShow msgAlert={this.msgAlert} user={user} addProduct={this.addProduct} match={props.match}/>
+          )} />
+          <AuthenticatedRoute user={user} path='/products-create' render={() => (
+            <ProductCreate msgAlert={this.msgAlert} user={user} />
           )} />
           {/* PURCHASES */}
           <AuthenticatedRoute user={user} exact path='/purchases' render={() => (
@@ -153,10 +187,10 @@ class App extends Component {
             <EditReview msgAlert={this.msgAlert} user={user} match={props.match} location={props.location} />
           )} />
           <AuthenticatedRoute user={user} path='/review-delete/:reviewId' render={props => (
-            <ReviewsDelete msgAlert={this.msgAlert} user={user} match={props.match} location={props.location} />
+            <ReviewsDelete msgAlert={this.msgAlert} user={user} match={props.match} location={props.location} history={props.history}/>
           )} />
-          <AuthenticatedRoute user={user} path='/review-create' render={() => (
-            <CreateReview msgAlert={this.msgAlert} user={user} />
+          <AuthenticatedRoute user={user} path='/review-create' render={(props) => (
+            <CreateReview msgAlert={this.msgAlert} user={user} location={props.location} />
           )} />
           {/* OTHER */}
           <AuthenticatedRoute user={user} path='/account' render={() => (
@@ -167,7 +201,7 @@ class App extends Component {
               user={user}
               msgAlert={this.msgAlert}
               cart={this.state.cart}
-              handlePurchase={this.handlePurchase}
+              handlePurchase={this.handleClick}
               removeProduct={this.removeProduct}
             />
           )} />

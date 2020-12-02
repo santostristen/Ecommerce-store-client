@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
-import { editReview, showReview } from './../../api/reviews'
+import { editReview, showReview } from '../../api/reviews'
 
 // Make sure productShow is labeled the same
 // import { productShow } from '../../api/product'
@@ -59,10 +59,10 @@ const EditReview = props => {
         variant: 'danger'
       }))
   }
-  // confirm after productShow url written (LOOK AT ME!!!!! SOMETHING IS WRONG)
+
   if (updated) {
     return (
-      <Redirect to={`/products/${props.location.state}`} />
+      <Redirect to={`/products/${props.location.state.productId}`} />
     )
   }
 
