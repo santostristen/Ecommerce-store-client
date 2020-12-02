@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import axios from 'axios'
 import { Route } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
 
@@ -23,6 +24,7 @@ import ReviewsDelete from './components/Reviews/ReviewsDelete'
 import CreateReview from './components/Reviews/ReviewsCreate'
 import ProductCreate from './components/Products/ProductsCreate'
 import { loadStripe } from '@stripe/stripe-js'
+import apiUrl from './apiConfig'
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
 const stripePromise = loadStripe('pk_test_51HtJM1Kr9AmqVFZO9h6JePYnZ0DlleDYm70kqle6Y7YMeKjEjNYGXCxPkRtMZw2ySpM57xbzSxwvKJoZNyekhW6f000TXLdiMb')
@@ -41,8 +43,34 @@ class App extends Component {
   // Get Stripe.js instance
     const stripe = await stripePromise
 
+    const totalPrice = this.state.cart.reduce((accumulator, curProduct) => {
+      const totalPrice = accumulator + curProduct.price
+      return totalPrice
+    }, 0)
+
     // Call your backend to create the Checkout Session
-    const response = await fetch('http://localhost:4741/create-checkout-session', { method: 'POST' })
+    const response = await axios({
+      url: apiUrl + '/create-checkout-session',
+      method: 'POST',
+      data: {
+        payment_method_types: ['card'],
+        line_items: [
+          {
+            price_data: {
+              currency: 'usd',
+              product_data: {
+                name: 'Memes'
+              },
+              unit_amount: totalPrice
+            },
+            quantity: 1
+          }
+        ],
+        mode: 'payment',
+        success_url: 'http://localhost:7165/#/cart',
+        cancel_url: 'http://localhost:7165/#/cart'
+      }
+    })
 
     const session = await response.json()
 
@@ -60,10 +88,12 @@ class App extends Component {
 
   handlePurchase = () => {
     const { cart, user } = this.state
-    const totalPrice = cart.reduce((accumulator, curProduct) => {
+
+    const totalPrice = this.state.cart.reduce((accumulator, curProduct) => {
       const totalPrice = accumulator + curProduct.price
       return totalPrice
     }, 0)
+
     const productTally = cart.reduce((accumulator, curProduct) => {
       accumulator[curProduct.name] = (accumulator[curProduct.name] || 0) + 1
       return accumulator
