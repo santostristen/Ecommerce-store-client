@@ -73,7 +73,6 @@ class CreateReview extends Component {
             value={this.state.review.rating}
             onChange={this.handleInputChange}
             type='Number'
-            step={0.5}
             min={1}
             max={5}
           />

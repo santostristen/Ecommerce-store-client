@@ -22,6 +22,10 @@ import EditReview from './components/Reviews/ReviewsEdit'
 import ReviewsDelete from './components/Reviews/ReviewsDelete'
 import CreateReview from './components/Reviews/ReviewsCreate'
 import ProductCreate from './components/Products/ProductsCreate'
+// import { loadStripe } from '@stripe/stripe-js'
+// Make sure to call `loadStripe` outside of a component’s render to avoid
+// recreating the `Stripe` object on every render.
+// const stripePromise = loadStripe('pk_test_51HtJM1Kr9AmqVFZO9h6JePYnZ0DlleDYm70kqle6Y7YMeKjEjNYGXCxPkRtMZw2ySpM57xbzSxwvKJoZNyekhW6f000TXLdiMb')
 
 class App extends Component {
   constructor () {
@@ -109,6 +113,9 @@ class App extends Component {
     return (
       <Fragment>
         <Header user={user} />
+        <button role="link">
+          Checkout
+        </button>
         {msgAlerts.map((msgAlert, index) => (
           <AutoDismissAlert
             key={index}
