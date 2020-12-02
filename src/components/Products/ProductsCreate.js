@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { createProduct } from './../../api/products'
+import { createProduct } from '../../api/products'
 
-const ProductCreate = props => {
+const ProductCreate = ({ msgAlert, user }) => {
   const [ product, setProduct ] = useState({
     name: '',
     description: '',
@@ -12,15 +12,15 @@ const ProductCreate = props => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    createProduct(product, props.user.token)
-      .then(this.msgAlert({
-        heading: 'Purchase Successful',
-        message: 'You have successfully purchased everything in your cart',
+    createProduct(product, user.token)
+      .then(msgAlert({
+        heading: 'Product Created',
+        message: 'You have successfully created a new meme',
         variant: 'success'
       }))
       .catch(err => {
-        this.msgAlert({
-          heading: 'Purchase Failure',
+        msgAlert({
+          heading: 'Product Create Failure',
           message: `Error: ${err.message}`,
           variant: 'danger'
         })

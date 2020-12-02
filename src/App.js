@@ -10,7 +10,7 @@ import SignIn from './components/SignIn/SignIn'
 import SignOut from './components/SignOut/SignOut'
 import ChangePassword from './components/ChangePassword/ChangePassword'
 
-import Products from './components/Products/Products'
+import Products from './components/Products/ProductsIndex'
 import ProductShow from './components/Products/ProductShow'
 import Account from './components/Account/Account'
 import PurchasesIndex from './components/Purchases/PurchasesIndex'
@@ -18,10 +18,10 @@ import PurchasesShow from './components/Purchases/PurchasesShow'
 import { createPurchase } from './api/purchases'
 import Cart from './components/Cart/Cart'
 import PurchasesDelete from './components/Purchases/PurchasesDelete'
-import EditReview from './components/Reviews/editReview'
+import EditReview from './components/Reviews/ReviewsEdit'
 import ReviewsDelete from './components/Reviews/ReviewsDelete'
-import CreateReview from './components/Reviews/createReview'
-import ProductCreate from './components/Products/ProductCreate'
+import CreateReview from './components/Reviews/ReviewsCreate'
+import ProductCreate from './components/Products/ProductsCreate'
 
 class App extends Component {
   constructor () {
@@ -57,6 +57,7 @@ class App extends Component {
         message: 'You have successfully purchased everything in your cart',
         variant: 'success'
       }))
+      .then(() => this.setState({ cart: [] }))
       .catch(err => {
         this.msgAlert({
           heading: 'Purchase Failure',
@@ -133,7 +134,7 @@ class App extends Component {
             <Products msgAlert={this.msgAlert} user={user} addProduct={this.addProduct}/>
           )} />
           <AuthenticatedRoute user={user} path='/products/:id' render={props => (
-            <ProductShow msgAlert={this.msgAlert} user={user} match={props.match}/>
+            <ProductShow msgAlert={this.msgAlert} user={user} addProduct={this.addProduct} match={props.match}/>
           )} />
           <AuthenticatedRoute user={user} path='/products-create' render={() => (
             <ProductCreate msgAlert={this.msgAlert} user={user} />
@@ -159,8 +160,8 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/review-delete/:reviewId' render={props => (
             <ReviewsDelete msgAlert={this.msgAlert} user={user} match={props.match} location={props.location} />
           )} />
-          <AuthenticatedRoute user={user} path='/review-create' render={() => (
-            <CreateReview msgAlert={this.msgAlert} user={user} />
+          <AuthenticatedRoute user={user} path='/review-create' render={(props) => (
+            <CreateReview msgAlert={this.msgAlert} user={user} location={props.location} />
           )} />
           {/* OTHER */}
           <AuthenticatedRoute user={user} path='/account' render={() => (

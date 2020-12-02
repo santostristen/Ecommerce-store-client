@@ -41,6 +41,7 @@ const ProductShow = ({ user, msgAlert, match, addProduct }) => {
             imgAlt={product.imgAlt}
             clicked={() => addProduct(product)}
           />
+          <Link to={{ pathname: '/review-create', state: product._id }}><Button variant="success">Leave a Review</Button></Link>
           <div>
             {product.reviews.map(review => (
               <div className="border-dark" key={review._id}>
