@@ -37,6 +37,10 @@ class App extends Component {
     }
   }
 
+  componentDidMount () {
+    this.tryAutoSignIn()
+  }
+
   handleClick = async (event) => {
   // Get Stripe.js instance
     const stripe = await stripePromise
@@ -111,9 +115,21 @@ class App extends Component {
     })
   }
 
-  setUser = user => this.setState({ user })
+  setUser = user => {
+    this.setState({ user })
+    localStorage.setItem('user', JSON.stringify(user))
+  }
 
-  clearUser = () => this.setState({ user: null })
+  clearUser = () => {
+    this.setState({ user: null })
+    localStorage.removeItem('user')
+  }
+
+  tryAutoSignIn = () => {
+    if (localStorage.getItem('user') && !this.state.user) {
+      this.setState({ user: JSON.parse(localStorage.getItem('user')) })
+    }
+  }
 
   deleteAlert = (id) => {
     this.setState((state) => {
