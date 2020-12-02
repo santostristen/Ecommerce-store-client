@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { createReview } from './../../api/reviews'
+import { Redirect } from 'react-router-dom'
+import { createReview } from '../../api/reviews'
 
 class CreateReview extends Component {
   constructor () {
@@ -8,8 +9,9 @@ class CreateReview extends Component {
       review: {
         head: '',
         body: '',
-        rating: null
-      }
+        rating: 3
+      },
+      created: false
     }
   }
 
@@ -25,14 +27,32 @@ class CreateReview extends Component {
   }
 
   handleSubmit = (event) => {
-    createReview()
-      .then(console.log)
-      .catch(console.error)
+    event.preventDefault()
+
+    const { msgAlert, user, location } = this.props
+
+    createReview(this.state.review, user.token, location.state)
+      .then(() => {
+        msgAlert({
+          heading: 'Create Review Success',
+          message: 'Check out our other products',
+          variant: 'success'
+        })
+      })
+      .then(() => this.setState({ created: true }))
+      .catch(err => {
+        msgAlert({
+          heading: 'Create Review Failure',
+          message: `Error: ${err.message}`,
+          variant: 'danger'
+        })
+      })
   }
 
   render () {
     return (
       <div>
+        {this.state.created && <Redirect to={`/products/${this.props.location.state}`}/>}
         <h2>Review</h2>
         <form onSubmit={this.handleSubmit}>
           <input
@@ -48,11 +68,12 @@ class CreateReview extends Component {
             onChange={this.handleInputChange}
           />
           <input
-            placeholder="Rating (#1-5)"
+            placeholder="1-5"
             name="rating"
             value={this.state.review.rating}
             onChange={this.handleInputChange}
             type='Number'
+            step={0.5}
             min={1}
             max={5}
           />

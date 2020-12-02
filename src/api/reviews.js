@@ -1,11 +1,11 @@
 import axios from 'axios'
 import apiUrl from '../apiConfig'
 
-export const createReview = (review, token) => {
+export const createReview = (review, token, productId) => {
   return axios({
     method: 'POST',
-    url: `${apiUrl}/reviews`,
-    data: { review: review },
+    url: `${apiUrl}/reviews/${productId}`,
+    data: { review },
     headers: {
       Authorization: `Bearer ${token}`
     }
