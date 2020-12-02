@@ -5,7 +5,7 @@ import { showReview, deleteReview } from '../../api/reviews'
 const ReviewsDelete = (props) => {
   const [ review, setReview ] = useState(null)
 
-  const { user, match, msgAlert, location, history } = props
+  const { user, match, msgAlert, location } = props
   const productId = location.state.productId
   const { reviewId } = match.params
   const [deleted, setDeleted] = useState(false)
