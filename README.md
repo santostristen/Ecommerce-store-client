@@ -22,6 +22,38 @@ List of Technologies:
 
 JavaScript, React, Stripe, Express, MongoDB, Heroku, Mongoose
 
+#### Routes:
+## AUTH
+| Verb   | URI Pattern        | Controller#Action          |
+|:-------|:----------------   |:------------------         |
+| POST   | `/sign-up`         | `users#sign-up`            |
+| POST   | `/sign-in`         | `users#sign-in`            |
+| DELETE | `/sign-out`        | `users#sign-out`           |
+| PATCH  | `/change-password` | `users#change-password`    |
+
+## PRODUCTS
+| Verb   | URI Pattern              | Controller#Action    |
+|:-------|:----------------         |:------------------   |
+| GET    | `/products`              | `products#index`     |
+| GET    | `/products/:productId`   | `products#show`      |
+| POST   | `/products`              | `products#create`    |
+
+## PURCHASES
+| Verb   | URI Pattern              | Controller#Action    |
+|:-------|:-----------------        |:------------------   |
+| POST   | `/purchases              | `purchases#create`   |
+| GET    | `/purchases/:purchaseId` | `purchases#show`     |
+| GET    | `/purchases              | `purchases#index`    |
+| DELETE | `/purchases/:id`         | `purchases#delete`   |
+
+## REVIEWS
+| Verb   | URI Pattern                        | Controller#Action    |
+|:-------|:-----------------                  |:------------------   |
+| POST   | `/reviews/:productId               | `reviews#create`     |
+| GET    | `/reviews/:reviewId/:productId`    | `reviews#show`       |
+| DELETE | `/reviews/:reviewId/:productId`    | `reviews#delete`     |
+| PATCH  | `/reviews/:reviewId/:productId`    | `reviews#patch`      |
+
 List of Unsolved Problems:
 
 Styling, passing form data to Stripe, building a search feature for specific items
