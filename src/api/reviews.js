@@ -12,7 +12,6 @@ export const createReview = (review, token, productId) => {
   })
 }
 export const showReview = (user, reviewId, productId) => {
-  console.log(productId)
   return axios({
     method: 'GET',
     url: `${apiUrl}/reviews/${reviewId}/${productId}`,

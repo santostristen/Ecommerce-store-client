@@ -63,7 +63,6 @@ class App extends Component {
   }
 
   handlePurchase = () => {
-    console.log('purchase handled')
     const { cart, user } = this.state
     const totalPrice = cart.reduce((accumulator, curProduct) => {
       const totalPrice = accumulator + curProduct.price
@@ -78,8 +77,6 @@ class App extends Component {
     //   return currentTally
     // } , {})
     const purchaseData = { totalPrice, productTally }
-
-    console.log(purchaseData)
 
     createPurchase(purchaseData, user.token)
       .then(this.msgAlert({
