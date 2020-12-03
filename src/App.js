@@ -41,7 +41,7 @@ class App extends Component {
     this.tryAutoSignIn()
   }
 
-  handleClick = async (event) => {
+  handleStripe = async (event) => {
   // Get Stripe.js instance
     const stripe = await stripePromise
 
@@ -63,6 +63,7 @@ class App extends Component {
   }
 
   handlePurchase = () => {
+    console.log('purchase handled')
     const { cart, user } = this.state
     const totalPrice = cart.reduce((accumulator, curProduct) => {
       const totalPrice = accumulator + curProduct.price
@@ -217,7 +218,8 @@ class App extends Component {
               user={user}
               msgAlert={this.msgAlert}
               cart={this.state.cart}
-              handlePurchase={this.handleClick}
+              handlePurchase={this.handlePurchase}
+              handleStripe={this.handleStripe}
               removeProduct={this.removeProduct}
             />
           )} />
