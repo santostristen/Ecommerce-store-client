@@ -16,7 +16,8 @@ Glow: Great collaboration, learned a lot through this process and how coding wor
 
 WireFrames: https://imgur.com/gallery/bOSaou9
 
-ERD: https://app.diagrams.net/?libs=general;er#G1r26y9EH39SRouskt5cU5S7nanTHK2hcW
+ERD: ![Team Project - ECommerce](https://user-images.githubusercontent.com/71291178/101092119-20ad0880-3587-11eb-84ca-1083a442fd90.jpg)
+
 
 List of Technologies:
 
