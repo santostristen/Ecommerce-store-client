@@ -10,7 +10,7 @@ const Product = props => (
       <Card.Body>
         <Card.Img src={props.imgSrc} alt={props.imgAlt}></Card.Img>
         <Card.Text>{props.description}</Card.Text>
-        <Card.Text>{props.price}</Card.Text>
+        <Card.Text>${props.price.toFixed(2)}</Card.Text>
       </Card.Body>
       <Card.Footer>
         <Button onClick={props.clicked}>Add to Cart</Button>

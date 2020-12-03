@@ -11,7 +11,7 @@ const Cart = ({ cart, handlePurchase, removeProduct }) => {
           {cart.map(product => (
             <div key={product._id}>
               <h5>{product.name}</h5>
-              <p>{product.price}</p>
+              <p>${product.price.toFixed(2)}</p>
               <Button variant='outline-danger' onClick={removeProduct}>Remove Product</Button>
             </div>
           ))}
@@ -19,7 +19,7 @@ const Cart = ({ cart, handlePurchase, removeProduct }) => {
           <p>$
             {cart.reduce((accumulator, curProduct) => {
               const totalPrice = accumulator + curProduct.price
-              return totalPrice
+              return totalPrice.toFixed(2)
             }, 0)}
           </p>
           <Button variant='primary' role='link' onClick={handlePurchase}>Checkout</Button>
