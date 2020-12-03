@@ -24,6 +24,6 @@ JavaScript, React, Stripe, Express, MongoDB, Heroku, Mongoose
 
 List of Unsolved Problems:
 
-Styling, passing form data to Stripe, successfully deploy the full site, building a search feature for specific items
+Styling, passing form data to Stripe, building a search feature for specific items
 
 User Stories: As an unregistered user, I would like to sign up with email and password so that I can upload items for sale. As a registered user, I would like to sign in with email and password so I can access my uploaded items for sale. As a signed in user, I would like to change password in order to keep my passwords updated and more secure. As a signed in user, I would like to sign out so that no one else can access my items for sale. As an unregistered user, I would like to see all of the products in order to survey products I might want to purchase. As a signed in user, I would like to add and remove products from a shopping cart in case I change my mind about purchasing a product or want to purchase multiple products. As a signed in user, I would like to purchase products in a shopping cart using Stripe in order to pay the vendor. As a signed in user, I would like to see all my past orders so I can see what I don’t need to buy anymore.
