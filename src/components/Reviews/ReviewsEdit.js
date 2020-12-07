@@ -19,13 +19,6 @@ const EditReview = props => {
       .then(res => {
         setReview(res.data.review)
       })
-    // .then(() => {
-    //   msgAlert({
-    //     heading: 'Show review success!',
-    //     message: 'See your review here.',
-    //     variant: 'success'
-    //   })
-    // })
       .catch(err => {
         msgAlert({
           heading: 'Show product failed :(',

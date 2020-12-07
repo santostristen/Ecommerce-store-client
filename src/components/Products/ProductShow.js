@@ -13,13 +13,6 @@ const ProductShow = ({ user, msgAlert, match, addProduct }) => {
       .then(res => {
         setProduct(res.data.product)
       })
-      .then(() => {
-        msgAlert({
-          heading: 'Show Product Success',
-          message: 'Check out the reviews!',
-          variant: 'success'
-        })
-      })
       .catch(err => {
         msgAlert({
           heading: 'Show Product Failure',

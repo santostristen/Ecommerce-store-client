@@ -12,13 +12,6 @@ const Products = ({ user, msgAlert, addProduct }) => {
       .then(res => {
         setProducts(res.data.products)
       })
-      .then(() => {
-        msgAlert({
-          heading: 'Products Success',
-          message: 'Check out our products',
-          variant: 'success'
-        })
-      })
       .catch(err => {
         msgAlert({
           heading: 'Could not get products',

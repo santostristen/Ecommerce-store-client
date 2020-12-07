@@ -16,13 +16,6 @@ class PurchasesIndex extends Component {
       .then(response => {
         this.setState({ purchases: response.data.purchases })
       })
-      .then(() => {
-        msgAlert({
-          heading: 'Your Purchases',
-          message: 'Past Purchases',
-          variant: 'success'
-        })
-      })
       .catch(err => {
         msgAlert({
           heading: 'Could not show purchases',
