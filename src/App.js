@@ -65,7 +65,6 @@ class App extends Component {
     }
   }
 
-<<<<<<< HEAD
   handlePurchase = () => {
     const { cart, user } = this.state
     const totalPrice = cart.reduce((accumulator, curProduct) => {
@@ -97,7 +96,7 @@ class App extends Component {
         })
       })
   }
-=======
+
   // handlePurchase = () => {
   //   const { cart, user } = this.state
   //   const totalPrice = cart.reduce((accumulator, curProduct) => {
@@ -131,7 +130,6 @@ class App extends Component {
   //       })
   //     })
   // }
->>>>>>> AA
 
   addProduct = product => {
     this.setState(prevState => {
