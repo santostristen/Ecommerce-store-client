@@ -17,7 +17,7 @@ const StripeButton = ({ totalPrice, onCheckout }) => {
       token={onCheckout}
       stripeKey={publishableKey}
     >
-      <Button variant="primary">
+      <Button variant="success" size="lg">
         <span className='p-10'>Checkout</span>
       </Button></StripeCheckout>
   )

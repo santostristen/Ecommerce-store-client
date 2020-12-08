@@ -3,7 +3,7 @@ import { Card, Button } from 'react-bootstrap'
 
 const Product = props => (
   <React.Fragment>
-    <Card className="col-5">
+    <Card className={`shadow-lg p-3 mb-5 bg-white rounded ${props.class}`} style={{ 'width': '500px' }}>
       <Card.Header>
         <Card.Title>{props.name}</Card.Title>
       </Card.Header>
@@ -13,7 +13,7 @@ const Product = props => (
         <Card.Text>${props.price.toFixed(2)}</Card.Text>
       </Card.Body>
       <Card.Footer>
-        <Button onClick={props.clicked}>Add to Cart</Button>
+        <Button style={{ backgroundColor: '#3E2673' }} onClick={props.clicked}>Add to Cart</Button>
         {props.children && props.children}
       </Card.Footer>
     </Card>

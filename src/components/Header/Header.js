@@ -26,7 +26,7 @@ const alwaysOptions = (
 )
 
 const Header = ({ user }) => (
-  <Navbar bg="primary" variant="dark" expand="md">
+  <Navbar style={{ backgroundColor: '#A61C28' }} variant="dark" expand="md">
     <Navbar.Brand href="#">
       The Meme Store
     </Navbar.Brand>

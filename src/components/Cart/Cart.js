@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from 'react-bootstrap'
+import { Button, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import StripeButton from '../Stripe/Stripe'
 
@@ -11,18 +11,25 @@ const Cart = ({ cart, handlePurchase, removeProduct }) => {
 
   return (
     <div>
-      <h2>Your Shopping Cart</h2>
+      <h2 className="text-center">Your Cart</h2>
       {cart.length > 0 ? (
         <div>
           {cart.map(product => (
-            <div key={product._id + Math.random()}>
-              <h5>{product.name}</h5>
-              <p>${product.price.toFixed(2)}</p>
-              <Button variant='outline-danger' onClick={removeProduct}>Remove Product</Button>
-            </div>
+            <Card key={product._id + Math.random()}>
+              <Card.Header>
+                <Card.Title>{product.name}</Card.Title>
+              </Card.Header>
+              <Card.Body className="row col-12">
+                <div className="col-8">
+                  <Card.Img src={product.imgSrc} alt={product.imgAlt}></Card.Img>
+                  <Card.Text>${product.price.toFixed(2)}</Card.Text>
+                </div>
+                <Button className="col-4" variant='outline-danger' onClick={removeProduct}>Remove Product</Button>
+              </Card.Body>
+            </Card>
           ))}
-          <h6>Total Price</h6>
-          <p>${totalPrice.toFixed(2)}</p>
+          <h3 className="mt-4">Total Price</h3>
+          <h5>${totalPrice.toFixed(2)}</h5>
           <StripeButton
             cart={cart}
             onCheckout={handlePurchase}

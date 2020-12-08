@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { showProduct } from '../../api/products'
 import Product from '../Product/Product'
 import StarRatingComponent from 'react-star-rating-component'
-import { Button } from 'react-bootstrap'
+import { Button, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 const ProductShow = ({ user, msgAlert, match, addProduct }) => {
@@ -23,10 +23,11 @@ const ProductShow = ({ user, msgAlert, match, addProduct }) => {
   }, [])
 
   return (
-    <div>
+    <Row className="justify-content-center">
       {product && (
-        <div>
+        <Row className="justify-content-center">
           <Product
+            class="col-12 mt-4"
             name={product.name}
             description={product.description}
             price={product.price}
@@ -34,18 +35,18 @@ const ProductShow = ({ user, msgAlert, match, addProduct }) => {
             imgAlt={product.imgAlt}
             clicked={() => addProduct(product)}
           />
-          <Link to={{ pathname: '/review-create', state: product._id }}><Button variant="success">Leave a Review</Button></Link>
-          <div>
+          <Link className="col-12 text-center" to={{ pathname: '/review-create', state: product._id }}><Button variant="success">Leave a Review</Button></Link>
+          <Row className="justify-content-center col-12 mt-4">
             {product.reviews.map(review => (
-              <div className="border-dark" key={review._id}>
+              <div className="col-5 mx-4 p-4 shadow rounded" key={review._id}>
                 <h4>{review.head}</h4>
-                <p>{review.body}</p>
                 <StarRatingComponent
                   name="review"
                   starCount={5}
                   value={review.rating}
                   editing={false}
                 />
+                <p>{review.body}</p>
                 {user._id === review.owner ? (
                   <div>
                     <Link to={{ pathname: `/review-update/${review._id}`, state: { productId: product._id } }}>
@@ -58,10 +59,10 @@ const ProductShow = ({ user, msgAlert, match, addProduct }) => {
                 ) : null}
               </div>
             ))}
-          </div>
-        </div>
+          </Row>
+        </Row>
       )}
-    </div>
+    </Row>
   )
 }
 

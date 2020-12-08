@@ -23,10 +23,11 @@ const Products = ({ user, msgAlert, addProduct }) => {
 
   return (
     <Row className="justify-content-center">
-      <h2 className="col-12">Our Products</h2>
+      <h2 className="col-12 text-center">Our Products</h2>
       {products && products.map(product => (
         <Product
           key={product._id}
+          class="col-6"
           name={product.name}
           description={product.description}
           price={product.price}
