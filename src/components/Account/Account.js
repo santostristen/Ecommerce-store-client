@@ -7,7 +7,7 @@ const Account = ({ user }) => {
     <Container>
       <Row>
         <h2 className="col-12">{user.email}&apos;s account</h2>
-        <Link to="/purchases"><Button variant="secondary">See purchases</Button></Link>
+        <Link to="/purchases"><Button style={{ backgroundColor: '#F2CB05' }}>See purchases</Button></Link>
       </Row>
     </Container>
   )

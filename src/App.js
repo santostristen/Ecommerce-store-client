@@ -41,12 +41,15 @@ class App extends Component {
     this.tryAutoSignIn()
   }
 
-  handleClick = async (event) => {
+  handleStripe = async (event) => {
   // Get Stripe.js instance
     const stripe = await stripePromise
 
     // Call your backend to create the Checkout Session
-    const response = await fetch('http://localhost:4741/create-checkout-session', { method: 'POST' })
+    const response = await fetch('http://localhost:4741/create-checkout-session', {
+      method: 'POST',
+      body: { totalPrice: () => this.totalPrice() }
+    })
 
     const session = await response.json()
 
@@ -78,8 +81,6 @@ class App extends Component {
     // } , {})
     const purchaseData = { totalPrice, productTally }
 
-    console.log(purchaseData)
-
     createPurchase(purchaseData, user.token)
       .then(this.msgAlert({
         heading: 'Purchase Successful',
@@ -95,6 +96,40 @@ class App extends Component {
         })
       })
   }
+
+  // handlePurchase = () => {
+  //   const { cart, user } = this.state
+  //   const totalPrice = cart.reduce((accumulator, curProduct) => {
+  //     const totalPrice = accumulator + curProduct.price
+  //     return totalPrice
+  //   }, 0)
+  //   const productTally = cart.reduce((accumulator, curProduct) => {
+  //     accumulator[curProduct.name] = (accumulator[curProduct.name] || 0) + 1
+  //     return accumulator
+  //   }, {})
+  // const fruitTally = fruit.reduce((currentTally, currentFruit) => {
+  //   currentTally[currentFruit] = (currentTally[currentFruit] || 0) + 1
+  //   return currentTally
+  // } , {})
+  // const purchaseData = { totalPrice, productTally }
+
+  // console.log(purchaseData)
+
+  //   createPurchase(purchaseData, user.token)
+  //     .then(this.msgAlert({
+  //       heading: 'Purchase Successful',
+  //       message: 'You have successfully purchased everything in your cart',
+  //       variant: 'success'
+  //     }))
+  //     .then(() => this.setState({ cart: [] }))
+  //     .catch(err => {
+  //       this.msgAlert({
+  //         heading: 'Purchase Failure',
+  //         message: `Error: ${err.message}`,
+  //         variant: 'danger'
+  //       })
+  //     })
+  // }
 
   addProduct = product => {
     this.setState(prevState => {
@@ -217,7 +252,8 @@ class App extends Component {
               user={user}
               msgAlert={this.msgAlert}
               cart={this.state.cart}
-              handlePurchase={this.handleClick}
+              handlePurchase={this.handlePurchase}
+              handleStripe={this.handleStripe}
               removeProduct={this.removeProduct}
             />
           )} />

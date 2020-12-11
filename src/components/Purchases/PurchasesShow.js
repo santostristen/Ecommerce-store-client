@@ -12,13 +12,6 @@ const PurchasesShow = props => {
       .then(res => {
         setPurchase(res.data.purchase)
       })
-      .then(() => {
-        msgAlert({
-          heading: 'Show purchase success!',
-          message: 'See your purchase here.',
-          variant: 'success'
-        })
-      })
       .catch(err => {
         msgAlert({
           heading: 'Show purchase failed :(',

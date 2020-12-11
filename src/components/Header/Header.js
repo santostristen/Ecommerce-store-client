@@ -21,12 +21,12 @@ const unauthenticatedOptions = (
 
 const alwaysOptions = (
   <Fragment>
-    <Nav.Link href="#/">Home</Nav.Link>
+    {/* <Nav.Link href="#/">Home</Nav.Link> */}
   </Fragment>
 )
 
 const Header = ({ user }) => (
-  <Navbar bg="primary" variant="dark" expand="md">
+  <Navbar style={{ backgroundColor: '#A61C28' }} variant="dark" expand="md">
     <Navbar.Brand href="#">
       The Meme Store
     </Navbar.Brand>
