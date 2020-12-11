@@ -2,7 +2,7 @@ Deployed Sites:
 
 BackEnd- https://aqueous-brushlands-71762.herokuapp.com/ FrontEnd- https://arcreactors.github.io/Ecommerce-store-client/
 
-Repos: BackEnd- https://dashboard.heroku.com/apps/aqueous-brushlands-71762/activity FrontEnd- https://github.com/arcREACTors
+Repos: BackEnd- https://github.com/arcREACTors/ecommerce-store-api FrontEnd- https://github.com/arcREACTors/Ecommerce-store-client
 
 SCRUM: The Product: An e-commerce store that sells your favorite memes using Stripe's safe and secure software to accept payment.
 
