@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Button } from 'react-bootstrap'
 import { Redirect } from 'react-router-dom'
 import { showReview, deleteReview } from '../../api/reviews'
 
@@ -50,11 +51,11 @@ const ReviewsDelete = (props) => {
     )
   }
   return (
-    <div>
+    <div className="text-center">
       { review ? (
-        <div>
+        <div className="text-center">
           <h2>Are you sure you want to delete this review?</h2>
-          <button onClick={handleDelete}>Delete</button>
+          <Button variant="danger" onClick={handleDelete}>Delete</Button>
         </div>
       ) : 'Loading...'}
     </div>

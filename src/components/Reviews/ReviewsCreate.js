@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Form, Button } from 'react-bootstrap'
 import { Redirect } from 'react-router-dom'
 import { createReview } from '../../api/reviews'
 
@@ -54,30 +55,41 @@ class CreateReview extends Component {
       <div>
         {this.state.created && <Redirect to={`/products/${this.props.location.state}`}/>}
         <h2>Review</h2>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            placeholder="Title"
-            name="head"
-            value={this.state.review.head}
-            onChange={this.handleInputChange}
-          />
-          <input
-            placeholder="Review"
-            name="body"
-            value={this.state.review.body}
-            onChange={this.handleInputChange}
-          />
-          <input
-            placeholder="1-5"
-            name="rating"
-            value={this.state.review.rating}
-            onChange={this.handleInputChange}
-            type='Number'
-            min={1}
-            max={5}
-          />
-          <button type="submit">Create Review</button>
-        </form>
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Group>
+            <Form.Label>Head:</Form.Label>
+            <Form.Control
+              placeholder="Title"
+              name="head"
+              value={this.state.review.head}
+              onChange={this.handleInputChange}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Body:</Form.Label>
+            <Form.Control
+              placeholder="Review"
+              name="body"
+              value={this.state.review.body}
+              onChange={this.handleInputChange}
+              as="textarea"
+              rows="3"
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Rating:</Form.Label>
+            <Form.Control
+              placeholder="1-5"
+              name="rating"
+              value={this.state.review.rating}
+              onChange={this.handleInputChange}
+              type='Number'
+              min={1}
+              max={5}
+            />
+          </Form.Group>
+          <Button variant="primary" type="submit">Create Review</Button>
+        </Form>
       </div>
 
     )

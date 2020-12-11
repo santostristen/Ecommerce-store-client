@@ -4,6 +4,7 @@
 import React, { useState, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
 import { editReview, showReview } from '../../api/reviews'
+import { Form, Button } from 'react-bootstrap'
 
 // Make sure productShow is labeled the same
 // import { productShow } from '../../api/product'
@@ -60,23 +61,31 @@ const EditReview = props => {
   }
 
   return (
-    <div>
-      <h2>Review</h2>
-      <form onSubmit={handleSubmit}>
-        <input
+    <Form onSubmit={handleSubmit}>
+      <Form.Group>
+        <Form.Label>Head:</Form.Label>
+        <Form.Control
           placeholder="Title"
           name="head"
           value={review.head}
           onChange={handleChange}
         />
-        <input
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>Body:</Form.Label>
+        <Form.Control
           placeholder="Review"
           name="body"
           value={review.body}
           onChange={handleChange}
+          as="textarea"
+          rows="3"
         />
-        <input
-          placeholder="Rating (#1-5)"
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>Rating:</Form.Label>
+        <Form.Control
+          placeholder="1-5"
           name="rating"
           value={review.rating}
           onChange={handleChange}
@@ -84,9 +93,9 @@ const EditReview = props => {
           min={1}
           max={5}
         />
-        <button type="submit">Update Review</button>
-      </form>
-    </div>
+      </Form.Group>
+      <Button variant="warning" type="submit">Update Review</Button>
+    </Form>
   )
 }
 
