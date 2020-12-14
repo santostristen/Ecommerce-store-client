@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 
 import { showRetailer, deleteRetailer } from '../../api/retailer'
 
 const RetailerShow = (props) => {
   const [retailer, setRetailer] = useState(null)
+  const [deleted, setDeleted] = useState(false)
   const { user, msgAlert, match } = props
 
   useEffect(() => {
@@ -37,6 +38,7 @@ const RetailerShow = (props) => {
           variant: 'success'
         })
       })
+      .then(() => setDeleted(true))
       .catch(err => {
         msgAlert({
           heading: 'Deletion Failed',
@@ -44,6 +46,12 @@ const RetailerShow = (props) => {
           variant: 'danger'
         })
       })
+  }
+
+  if (deleted) {
+    return (
+      <Redirect to='/retailers' />
+    )
   }
 
   return (
