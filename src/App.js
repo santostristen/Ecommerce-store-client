@@ -22,6 +22,10 @@ import EditReview from './components/Reviews/ReviewsEdit'
 import ReviewsDelete from './components/Reviews/ReviewsDelete'
 import CreateReview from './components/Reviews/ReviewsCreate'
 import ProductCreate from './components/Products/ProductsCreate'
+import RetailerCreate from './components/Retailer/RetailerCreate'
+import Retailers from './components/Retailer/RetailerIndex'
+import RetailerShow from './components/Retailer/RetailerShow'
+import RetailerEdit from './components/Retailer/RetailerEdit'
 import { loadStripe } from '@stripe/stripe-js'
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -257,6 +261,33 @@ class App extends Component {
               removeProduct={this.removeProduct}
             />
           )} />
+          <AuthenticatedRoute user={user} exact path='/retailers' render={() => (
+            <Retailers
+              user={user}
+              msgAlert={this.msgAlert}
+            />
+          )}/>
+          <AuthenticatedRoute user={user} path='/retailers-create' render={() => (
+            <RetailerCreate
+              user={user}
+              msgAlert={this.msgAlert}
+            />
+          )}/>
+          <AuthenticatedRoute user={user} path='/retailers/:retailerId' render={({ match }) => (
+            <RetailerShow
+              user={user}
+              msgAlert={this.msgAlert}
+              match={match}
+            />
+          )}/>
+          <AuthenticatedRoute user={user} path='/retailers-update/:retailerId' render={({ match, history }) => (
+            <RetailerEdit
+              match={match}
+              history={history}
+              user={user}
+              msgAlert={this.msgAlert}
+            />
+          )}/>
         </main>
       </Fragment>
     )
